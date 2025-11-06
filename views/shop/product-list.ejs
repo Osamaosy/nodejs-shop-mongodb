@@ -1,0 +1,43 @@
+<%- include('../includes/head.ejs') %>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if (prods.length > 0) { %>
+            <div class="container">
+                <div class="page-header">
+                    <h1>جميع المنتجات</h1>
+                    <p class="subtitle">تصفح كامل المجموعة المتاحة</p>
+                </div>
+
+                <div class="products-grid">
+                    <% prods.forEach(product => { %>
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
+                            </div>
+                            <div class="product-content">
+                                <h3><%= product.title %></h3>
+                                <p>$<%= product.price %></p>
+                                <p><%= product.description %></p>
+                            </div>
+                            <div class="product-actions">
+                                <a href="/products/<%= product._id %>" class="btn btn-secondary">عرض التفاصيل</a>
+                                <form action="/cart" method="POST">
+                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                    <button type="submit" class="btn btn-primary">أضف للسلة</button>
+                                </form>
+                            </div>
+                        </article>
+                    <% }); %>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="container">
+                <h2 class="no-products">لا توجد منتجات متاحة حاليًا</h2>
+            </div>
+        <% } %>
+    </main>
+
+<%- include('../includes/end.ejs') %>

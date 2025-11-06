@@ -1,0 +1,30 @@
+<%- include('includes/head.ejs') %>
+
+<body>
+    <%- include('includes/navigation.ejs') %>
+
+    <main>
+        <div class="container">
+            <div class="error-container">
+                <div class="error-content">
+                    <h1 class="error-code">404</h1>
+                    <h2>عذراً! الصفحة غير موجودة</h2>
+                    <p class="error-message">الصفحة التي تبحث عنها غير موجودة أو تم نقلها إلى موقع آخر</p>
+                    <div class="error-actions">
+                        <a href="/" class="btn btn-primary">العودة للصفحة الرئيسية</a>
+                        <a href="/admin/add-product" class="btn btn-secondary">إضافة منتج</a>
+                    </div>
+                </div>
+                <div class="error-illustration">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="80" fill="#f0f0f0" stroke="#dbc441" stroke-width="3"/>
+                        <circle cx="75" cy="85" r="8" fill="#3e00a1"/>
+                        <circle cx="125" cy="85" r="8" fill="#3e00a1"/>
+                        <path d="M 70 130 Q 100 110 130 130" stroke="#3e00a1" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<%- include('includes/end.ejs') %>
