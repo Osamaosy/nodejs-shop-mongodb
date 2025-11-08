@@ -11,7 +11,13 @@
             </div>
 
             <% if (products.length > 0) { %>
-                <!-- السلة فيها منتجات -->
+
+                <% 
+                    let total = 0;
+                    products.forEach(p => {
+                        total += p.price * p.quantity;
+                    });
+                %>
                 <div class="cart-container">
                     <div class="cart-items">
                         <% products.forEach(item => { %>
@@ -25,20 +31,20 @@
                                 </div>
                                 <div class="cart-item-quantity">
                                     <form action="/cart-reduce-item" method="POST" style="display: inline;">
-                                        <input type="hidden" name="productId" value="<%= item.id %>">
+                                        <input type="hidden" name="productId" value="<%= item._id %>">
                                         <button type="submit" class="btn-quantity">-</button>
                                     </form>
-                                    <span><%= item.cartItem.quantity %></span>
+                                    <span><%= item.quantity %></span>
                                     <form action="/cart" method="POST" style="display: inline;">
-                                        <input type="hidden" name="productId" value="<%= item.id %>">
+                                        <input type="hidden" name="productId" value="<%= item._id %>">
                                         <button type="submit" class="btn-quantity">+</button>
                                     </form>
                                 </div>
                                 <div class="cart-item-total">
-                                    <p>$<%= (item.price * item.cartItem.quantity).toFixed(2) %></p>
+                                    <p>$<%= (item.price * item.quantity).toFixed(2) %></p>
                                 </div>
                                 <form action="/cart-delete-item" method="POST" class="cart-item-delete">
-                                    <input type="hidden" name="productId" value="<%= item.id %>">
+                                    <input type="hidden" name="productId" value="<%= item._id %>">
                                     <button type="submit" class="btn-delete">
                                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -58,7 +64,7 @@
                         </div>
                         <div class="cart-summary-row cart-summary-total">
                             <span>الإجمالي:</span>
-                            <span>$<%= totalPrice %></span>
+                            <span>$<%= total.toFixed(2) %></span>
                         </div>
                         <form action="/create-order" method="POST">
                             <button type="submit" class="btn btn-primary btn-block">إتمام الطلب</button>
@@ -67,7 +73,6 @@
                     </div>
                 </div>
             <% } else { %>
-                <!-- سلة فارغة -->
                 <div class="empty-cart">
                     <svg width="100" height="100" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5z"/>
