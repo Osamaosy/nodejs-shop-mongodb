@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const shopController = require('../controller/shop');  // ← تأكد من المسار
+const shopController = require('../controllers/shop');  // ← تأكد من المسار
 
 router.get('/', shopController.getIndex);
 router.get('/products', shopController.getProducts);
