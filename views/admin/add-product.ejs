@@ -12,6 +12,7 @@
                 </div>
 
                 <form class="product-form" action="/admin/add-product" method="POST">
+                    <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                     <div class="form-control">
                         <label for="title">عنوان المنتج</label>
                         <input type="text" name="title" id="title" placeholder="أدخل اسم المنتج">

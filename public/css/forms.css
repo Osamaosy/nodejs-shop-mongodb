@@ -1,0 +1,41 @@
+/* Additional Form Styles (Optional) */
+
+/* Form Validation States */
+.form-control input:invalid:not(:placeholder-shown),
+.form-control textarea:invalid:not(:placeholder-shown) {
+    border-color: #dc3545;
+}
+
+.form-control input:valid:not(:placeholder-shown),
+.form-control textarea:valid:not(:placeholder-shown) {
+    border-color: #28a745;
+}
+
+/* Loading State */
+.form-control.loading input,
+.form-control.loading textarea {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Success Message */
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 16px 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 25px;
+    border-left: 4px solid #28a745;
+    font-weight: 500;
+}
+
+/* Error Message */
+.error-message-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 16px 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 25px;
+    border-left: 4px solid #dc3545;
+    font-weight: 500;
+}

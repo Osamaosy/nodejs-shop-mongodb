@@ -24,10 +24,13 @@
                             </div>
                             <div class="product-actions">
                                 <a href="/products/<%= product._id %>" class="btn btn-secondary">عرض التفاصيل</a>
-                                <form action="/cart" method="POST">
-                                    <input type="hidden" name="productId" value="<%= product._id %>">
-                                    <button type="submit" class="btn btn-primary">أضف للسلة</button>
-                                </form>
+                                <% if (isAuthenticated) { %>
+                                    <form action="/cart" method="POST">
+                                        <input type="hidden" name="productId" value="<%= product._id %>">
+                                        <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+                                        <button type="submit" class="btn btn-primary">أضف للسلة</button>
+                                    </form>
+                                    <% } %>
                             </div>
                         </article>
                     <% }); %>

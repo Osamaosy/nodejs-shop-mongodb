@@ -1,0 +1,78 @@
+/* 404 Error Page Styles */
+.error-page {
+    min-height: calc(100vh - 70px - 75px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.error-container {
+    text-align: center;
+    max-width: 600px;
+    background: var(--white);
+    padding: 60px 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 900;
+    color: var(--secondary-color);
+    line-height: 1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.error-container h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.error-message {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.error-actions .btn {
+    padding: 14px 30px;
+    width: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 5rem;
+    }
+
+    .error-container {
+        padding: 40px 30px;
+    }
+
+    .error-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .error-actions {
+        flex-direction: column;
+    }
+
+    .error-actions .btn {
+        width: 100%;
+    }
+}
