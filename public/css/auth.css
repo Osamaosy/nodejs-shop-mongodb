@@ -86,3 +86,24 @@
         font-size: 1.8rem;
     }
 }
+
+.reset {
+    width: 20rem; 
+    max-width: 90%;
+    margin: 0 auto;
+    padding-top: 1rem;
+    text-align: center; 
+}
+
+.reset a {
+    color: #0056b3;
+    text-decoration: none; 
+    font-size: 0.95rem;
+    display: inline-block;
+}
+
+.reset a:hover,
+.reset a:active {
+    color: #003366; 
+    text-decoration: underline;
+}
