@@ -107,3 +107,14 @@
     color: #003366; 
     text-decoration: underline;
 }
+
+.login-form input.invalid,
+.login-form textarea.invalid{
+    border-color: #ff0000; 
+    border-width: 2px;
+    background-color: #fce4e4; 
+}
+
+.login-form input.invalid:focus {
+    border-color: #c90000; 
+}

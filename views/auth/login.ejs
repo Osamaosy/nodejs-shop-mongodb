@@ -15,12 +15,22 @@
             
             <div class="form-control">
                 <label for="email">البريد الإلكتروني</label>
-                <input type="email" name="email" id="email" placeholder="example@email.com" >
+                <input 
+                    class="<%= validationErrors.find(e => e.path === 'email') ? 'invalid' : '' %>"
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    value="<%= oldInput.email %>">
             </div>
             
             <div class="form-control">
                 <label for="password">كلمة المرور</label>
-                <input type="password" name="password" id="password" placeholder="********" >
+                <input 
+                    class="<%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>"
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    value="<%= oldInput.password %>">
             </div>
             
             <button class="btn btn-primary" type="submit">دخول</button>
