@@ -124,7 +124,11 @@ exports.postLogin = (req, res, next) => {
           res.redirect('/login');
         });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 
@@ -170,7 +174,9 @@ exports.postSignup = (req, res, next) => {
         });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -201,7 +207,8 @@ exports.postReset = (req, res, next) => {
         return user.save();
       })
       .then(result => {
-        return transporter.sendMail({
+        res.redirect('/');
+        transporter.sendMail({
           to: req.body.email,
           from: 'shop@node-complete.com',
           subject: 'Password reset',
@@ -211,13 +218,10 @@ exports.postReset = (req, res, next) => {
           `
         });
       })
-      .then(() => {
-        req.flash('success', 'Password reset link sent to your email.'); 
-        res.redirect('/login');
-      })
       .catch(err => {
-        console.log(err);
-        res.redirect('/reset'); // تحويل في حالة حدوث أي خطأ في الداتابيز
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
       });
   });
 };
@@ -241,7 +245,9 @@ exports.getNewPassword = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -270,6 +276,8 @@ exports.postNewPassword = (req, res, next) => {
       res.redirect('/login');
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };

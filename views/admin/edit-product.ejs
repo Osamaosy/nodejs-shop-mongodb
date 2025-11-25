@@ -18,7 +18,7 @@
                             </p>
                         </div>
 
-                        <form class="product-form" action="<%= editing ? '/admin/edit-product' : '/admin/add-product' %>" method="POST">
+                        <form class="product-form" action="<%= editing ? '/admin/edit-product' : '/admin/add-product' %>" method="POST" enctype="">
                         
                             <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                             
@@ -50,14 +50,21 @@
                                     placeholder="وصف المنتج..."><%= editing ? product.description : '' %></textarea>
                             </div>
 
-                            <div class="form-control">
+                            <!-- <div class="form-control">
                                 <label for="imageUrl">رابط الصورة</label>
                                 <input type="url" name="imageUrl" id="imageUrl"
-                                    class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : '' %>"
-                                    value="<%= editing ? product.imageUrl : '' %>"
+                                class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : '' %>"
+                                value="<%= editing ? product.imageUrl : '' %>"
+                                placeholder="https://example.com/image.jpg">
+                            </div> -->
+                            <div class="form-control">
+                                <label for="image">الصورة</label>
+                                <input type="file" name="image" id="image"
+                                    value="<%= editing ? product.image : '' %>"
                                     placeholder="https://example.com/image.jpg">
                             </div>
 
+                            
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">
                                     <%= editing ? 'حفظ التعديلات' : 'إضافة المنتج' %>
