@@ -359,3 +359,31 @@ main {
     color: white;
     text-decoration: none;
 }
+
+/* تنسيق قسم الترقيم */
+.pagination {
+    margin-top: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* تنسيق روابط الترقيم */
+.pagination a {
+    text-decoration: none;
+    color: #00695c;
+    padding: 0.5rem 1rem;
+    border: 1px solid #00695c;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+/* عند المرور بالماوس */
+.pagination a:hover,
+.pagination a:active,
+.pagination a.active {
+    background-color: #00695c;
+    color: white;
+}

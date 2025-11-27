@@ -5,15 +5,34 @@ const path = require('path');
 
 const PDFDocument = require('pdfkit');
 
+const ITEMS_PER_PAGE = 3;
+
 exports.getProducts = (req, res, next) => {
+  // 1. تحديد رقم الصفحة الحالية
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  // 2. عد المنتجات وتطبيق الـ Pagination
   Product.find()
+    .countDocuments()
+    .then(numProducts => {
+      totalItems = numProducts;
+      return Product.find()
+        .skip((page - 1) * ITEMS_PER_PAGE) // تأكد أن ITEMS_PER_PAGE معرف في أعلى الملف
+        .limit(ITEMS_PER_PAGE);
+    })
     .then(products => {
-      console.log(products);
       res.render('shop/product-list', {
         prods: products,
         pageTitle: 'All Products',
         path: '/products',
-        pageCSS: 'product'
+        pageCSS: 'product',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
       });
     })
     .catch(err => {
@@ -26,8 +45,8 @@ exports.getProducts = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   Product.findById(prodId)
-    .then(product => {
-      res.render('shop/product-detail', {
+      .then(product => {
+        res.render('shop/product-detail', {
         product: product,
         pageTitle: product.title,
         path: '/products',
@@ -41,14 +60,33 @@ exports.getProduct = (req, res, next) => {
     });
 };
 
+
+
 exports.getIndex = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
   Product.find()
+    .countDocuments()
+    .then(numProducts => {
+      totalItems = numProducts;
+      
+      return Product.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
     .then(products => {
       res.render('shop/index', {
         prods: products,
         pageTitle: 'Shop',
         path: '/',
-        pageCSS: 'product'
+        pageCSS : 'product',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
       });
     })
     .catch(err => {

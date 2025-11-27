@@ -30,12 +30,15 @@
                                         <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                                         <button type="submit" class="btn btn-primary">أضف للسلة</button>
                                     </form>
-                                    <% } %>
+                                <% } %>
                             </div>
                         </article>
                     <% }); %>
                 </div>
-            </div>
+            <%- include('../includes/pagination.ejs') %>
+
+
+                </div>
         <% } else { %>
             <div class="container">
                 <h2 class="no-products">لا توجد منتجات متاحة حاليًا</h2>
