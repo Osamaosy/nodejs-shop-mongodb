@@ -15,7 +15,8 @@
                 <% 
                     let total = 0;
                     products.forEach(p => {
-                        total += p.price * p.quantity;
+                        // 👇 التعديل هنا: الوصول للسعر عبر productId
+                        total += p.productId.price * p.quantity;
                     });
                 %>
                 <div class="cart-container">
@@ -23,30 +24,30 @@
                         <% products.forEach(item => { %>
                             <div class="cart-item">
                                 <div class="cart-item-image">
-                                    <img src="<%= item.imageUrl %>" alt="<%= item.title %>">
+                                    <img src="/<%= item.productId.imageUrl %>" alt="<%= item.productId.title %>">
                                 </div>
                                 <div class="cart-item-details">
-                                    <h3><%= item.title %></h3>
-                                    <p class="cart-item-price">$<%= item.price %></p>
+                                    <h3><%= item.productId.title %></h3>
+                                    <p class="cart-item-price">$<%= item.productId.price %></p>
                                 </div>
                                 <div class="cart-item-quantity">
                                     <form action="/cart-reduce-item" method="POST" style="display: inline;">
-                                        <input type="hidden" name="productId" value="<%= item._id %>">
+                                        <input type="hidden" name="productId" value="<%= item.productId._id %>">
                                         <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                                         <button type="submit" class="btn-quantity">-</button>
                                     </form>
                                     <span><%= item.quantity %></span>
                                     <form action="/cart" method="POST" style="display: inline;">
-                                        <input type="hidden" name="productId" value="<%= item._id %>">
+                                        <input type="hidden" name="productId" value="<%= item.productId._id %>">
                                         <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                                         <button type="submit" class="btn-quantity">+</button>
                                     </form>
                                 </div>
                                 <div class="cart-item-total">
-                                    <p>$<%= (item.price * item.quantity).toFixed(2) %></p>
+                                    <p>$<%= (item.productId.price * item.quantity).toFixed(2) %></p>
                                 </div>
                                 <form action="/cart-delete-item" method="POST" class="cart-item-delete">
-                                    <input type="hidden" name="productId" value="<%= item._id %>">
+                                    <input type="hidden" name="productId" value="<%= item.productId._id %>">
                                     <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                                     <button type="submit" class="btn-delete">
                                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">

@@ -1,67 +1,82 @@
 <%- include('../includes/head.ejs') %>
-</head>
+    </head>
 
-<body>
-    <%- include('../includes/navigation.ejs') %>
+    <body>
+        <%- include('../includes/navigation.ejs') %>
 
-    <main>
-        <div class="container">
-            <div class="page-header">
-                <h1>طلباتك</h1>
-                <p class="subtitle">جميع الطلبات التي قمت بها</p>
-            </div>
+            <main>
+                <div class="container">
+                    <div class="page-header">
+                        <h1>طلباتك</h1>
+                        <p class="subtitle">جميع الطلبات التي قمت بها</p>
+                    </div>
 
-            <% if (orders.length > 0) { %>
-                <div class="orders-container">
-                    <div class="orders-list">
-                        <% orders.forEach(order => { %>
-                            <div class="order-card">
-                                <div class="order-header">
-                                    <div>
-                                        <div class="order-id">Order #<%= order._id %></div>
-                                        <div class="order-date">User: <%= order.user.name %></div>
-                                    </div>
-                                </div>
-
-                                <div class="order-items">
-                                    <% order.products.forEach(item => { %>
-                                        <div class="order-item">
-                                            <div class="order-item-info">
-                                                <span class="order-item-title">
-                                                    <%= item.product.title %>
-                                                </span>
-                                                <span class="order-item-quantity">
-                                                    x <%= item.quantity %>
-                                                </span>
+                    <% if (orders.length> 0) { %>
+                        <div class="orders-container">
+                            <div class="orders-list">
+                                <% orders.forEach(order=> { %>
+                                    <div class="order-card">
+                                        <div class="order-header">
+                                            <div>
+                                                <div class="order-id">Order #<%= order._id %>
+                                                </div>
+                                                <div class="order-date">User: <%= order.user.name %>
+                                                </div>
                                             </div>
-                                            <div class="order-item-price">
-                                                $<%= (item.product.price * item.quantity).toFixed(2) %>
+
+                                            <div class="order-actions">
+                                                <a href="/orders/<%= order._id %>" class="btn-invoice">
+                                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                                                        style="margin-left:5px; vertical-align: text-bottom;">
+                                                        <path
+                                                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                        <path
+                                                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                    </svg>
+                                                    Invoice PDF
+                                                </a>
                                             </div>
                                         </div>
+
+                                        <div class="order-items">
+                                            <% order.products.forEach(item=> { %>
+                                                <div class="order-item">
+                                                    <div class="order-item-info">
+                                                        <span class="order-item-title">
+                                                            <%= item.product.title %>
+                                                        </span>
+                                                        <span class="order-item-quantity">
+                                                            x <%= item.quantity %>
+                                                        </span>
+                                                    </div>
+                                                    <div class="order-item-price">
+                                                        $<%= (item.product.price * item.quantity).toFixed(2) %>
+                                                    </div>
+                                                </div>
+                                                <% }); %>
+                                        </div>
+
+                                        <div class="order-total">
+                                            <span class="order-total-label">الإجمالي:</span>
+                                            <span class="order-total-value">
+                                                $<%= order.products.reduce((total, item)=> {
+                                                    return total + (item.product.price * item.quantity);
+                                                    }, 0).toFixed(2) %>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <% }); %>
-                                </div>
-
-                                <div class="order-total">
-                                    <span class="order-total-label">الإجمالي:</span>
-                                    <span class="order-total-value">
-                                        $<%= order.products.reduce((total, item) => {
-                                            return total + (item.product.price * item.quantity);
-                                        }, 0).toFixed(2) %>
-                                    </span>
-                                </div>
                             </div>
-                        <% }); %>
-                    </div>
+                        </div>
+                        <% } else { %>
+                            <div class="no-orders">
+                                <h2>لا توجد طلبات بعد</h2>
+                                <p>لم تقم بأي طلبات حتى الآن. ابدأ بالتسوق الآن!</p>
+                                <a href="/products" class="btn btn-primary">تصفح المنتجات</a>
+                            </div>
+                            <% } %>
                 </div>
-            <% } else { %>
-                <div class="no-orders">
-                    <h2>لا توجد طلبات بعد</h2>
-                    <p>لم تقم بأي طلبات حتى الآن. ابدأ بالتسوق الآن!</p>
-                    <a href="/products" class="btn btn-primary">تصفح المنتجات</a>
-                </div>
-            <% } %>
-        </div>
-    </main>
+            </main>
 
-    <%- include('../includes/end.ejs') %>
-</body>
+            <%- include('../includes/end.ejs') %>
+    </body>

@@ -51,20 +51,6 @@ exports.getSignup = (req, res, next) => {
   });
 };
 
-exports.getReset = (req, res, next) => {
-  let message = req.flash('error');
-  if (message.length > 0) {
-    message = message[0];
-  } else {
-    message = null;
-  }
-  res.render('auth/reset', {
-    path: '/reset',
-    pageTitle: 'Reset Password',
-    errorMessage: message
-  });
-};
-
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -94,7 +80,7 @@ exports.postLogin = (req, res, next) => {
             email: email,
             password: password
           },
-          validationErrors: [{path: 'email'}]
+          validationErrors: []
         });
       }
       bcrypt
@@ -116,7 +102,7 @@ exports.postLogin = (req, res, next) => {
               email: email,
               password: password
             },
-            validationErrors: [{path: 'password'}]
+            validationErrors: []
           });
         })
         .catch(err => {
@@ -131,7 +117,6 @@ exports.postLogin = (req, res, next) => {
     });
 };
 
-
 exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -145,6 +130,7 @@ exports.postSignup = (req, res, next) => {
       pageTitle: 'Signup',
       errorMessage: errors.array()[0].msg,
       oldInput: {
+        name: name,
         email: email,
         password: password,
         confirmPassword: req.body.confirmPassword
@@ -157,9 +143,9 @@ exports.postSignup = (req, res, next) => {
     .hash(password, 12)
     .then(hashedPassword => {
       const user = new User({
+        name: name,
         email: email,
         password: hashedPassword,
-        name: name,
         cart: { items: [] }
       });
       return user.save();
@@ -187,7 +173,19 @@ exports.postLogout = (req, res, next) => {
   });
 };
 
-
+exports.getReset = (req, res, next) => {
+  let message = req.flash('error');
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+  res.render('auth/reset', {
+    path: '/reset',
+    pageTitle: 'Reset Password',
+    errorMessage: message
+  });
+};
 
 exports.postReset = (req, res, next) => {
   crypto.randomBytes(32, (err, buffer) => {
@@ -207,8 +205,7 @@ exports.postReset = (req, res, next) => {
         return user.save();
       })
       .then(result => {
-        res.redirect('/');
-        transporter.sendMail({
+        return transporter.sendMail({
           to: req.body.email,
           from: 'shop@node-complete.com',
           subject: 'Password reset',
@@ -217,7 +214,9 @@ exports.postReset = (req, res, next) => {
             <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
           `
         });
-      })
+      }).then(() => {
+        res.redirect('/');
+        })
       .catch(err => {
         const error = new Error(err);
         error.httpStatusCode = 500;

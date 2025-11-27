@@ -330,3 +330,32 @@ main {
     width: 30rem;
   }
 }
+
+/* جعل الهيدر يوزع المساحة بين العنوان والزر */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* باقي التنسيقات القديمة... */
+}
+
+/* تنسيق زر الفاتورة */
+.btn-invoice {
+    background-color: transparent;
+    color: #00695c; /* لون أخضر غامق احترافي */
+    border: 1px solid #00695c;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-invoice:hover {
+    background-color: #00695c;
+    color: white;
+    text-decoration: none;
+}
